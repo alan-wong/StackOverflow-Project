@@ -36,12 +36,15 @@ def user_age(data):
 
 def extract_features(feature_names, data):
     fea = pd.DataFrame(index=data.index)
-    for name in feature_names:
-        if name in data:
-            fea = fea.join(data[name])
-        else:
-            fea = fea.join(getattr(features, 
-                camel_to_underscores(name))(data))
+    try:
+        for name in feature_names:
+            if name in data:
+                fea = fea.join(data[name])
+            else:
+                fea = fea.join(getattr(features, 
+                    camel_to_underscores(name))(data))
+    except (TypeError):
+        print"Error in this line: %s" % (fea)
     return fea
 
 if __name__=="__main__":
