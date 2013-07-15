@@ -13,7 +13,7 @@ import xml.etree.cElementTree as et
 import csv
 import collections
 from datetime import datetime
-import mysql.connector
+#import mysql.connector
 
 posts_input_file = r'H:\kaggle\Stack Exchange Data Dump - Mar 2013\Content\Posts.xml'
 posts_output_dest = r'H:\kaggle\Stack Exchange Data Dump - Mar 2013\Content\PostsCorrected.csv'
@@ -182,10 +182,13 @@ def count_csv_rows(csvFile):
 
     # this will count empty rows
     otherCount = sum(1 for row in csv.reader(open(posts_output_dest, encoding = 'utf-8')))
+    print(csvFile)
     print('total without blank lines is: ' + str(count))
     print('total with possible blank lines is: ' + str(otherCount))
 
 
 
 if __name__ == '__main__':
-    main()
+    count_csv_rows(r'h:\kaggle\basic_benchmark.csv')
+    count_csv_rows(r'h:\kaggle\basic_benchmark_Oct.csv')
+    count_csv_rows(r'h:\kaggle\public_leaderboard.csv')

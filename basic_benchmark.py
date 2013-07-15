@@ -1,6 +1,7 @@
 import competition_utilities as cu
 import features
 from sklearn.ensemble import RandomForestClassifier
+import datetime
 
 train_file = "train-sample.csv"
 #train_file = "train-sample_October_9_2012_v2.csv"
@@ -63,5 +64,22 @@ def main():
     print("Saving submission to %s" % submission_file)
     cu.write_submission(submission_file, probs)
 
+def test1():
+    data = cu.get_dataframe(full_train_file)
+    print("Reading data frame")
+    data['OpenStatusMod'] = data['OpenStatus'].map(convert_status)
+    print("fill na for bodymarkdown")
+    data = data.fillna({"BodyMarkdown":""}, inplace=True)
+    print("fill na for title")
+    data = data.fillna({"Title":""}, inplace=True)
+    print("fill na for post creation")
+    data = data.fillna({"PostCreationDate":datetime.datetime(2008,07,31,21,42,52)}, inplace=True)
+    print("fill na for owner creation")
+    data = data.fillna({"OwnerCreationDate":datetime.datetime(2008,07,31,21,42,53)}, inplace=True)
+    print("adding column")
+    
+    test_features = features.extract_features(feature_names, data)
+    
 if __name__=="__main__":
-    main()
+    test1()
+    #main()

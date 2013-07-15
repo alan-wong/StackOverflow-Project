@@ -6,8 +6,8 @@ import numpy as np
 import os
 import pandas as pd
 
-data_path = r'd:\Kaggle'
-submissions_path = r'd:\Kaggle'
+data_path = r'h:\Kaggle'
+submissions_path = r'h:\Kaggle'
 if not data_path or not submissions_path:
     raise Exception("Set the data and submission paths in competition_utilities.py!")
 

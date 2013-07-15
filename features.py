@@ -5,6 +5,7 @@ import features
 import numpy as np
 import pandas as pd
 import re
+import traceback
 
 def camel_to_underscores(name):
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
@@ -36,15 +37,18 @@ def user_age(data):
 
 def extract_features(feature_names, data):
     fea = pd.DataFrame(index=data.index)
-    try:
-        for name in feature_names:
+  
+    for name in feature_names:
+        try:
             if name in data:
                 fea = fea.join(data[name])
             else:
                 fea = fea.join(getattr(features, 
                     camel_to_underscores(name))(data))
-    except (TypeError):
-        print"Error in this line: %s" % (fea)
+        except:
+            print traceback.format_exc()
+            print"Error in this line: %s, feature:%s" % (fea.values, name)
+            pass
     return fea
 
 if __name__=="__main__":
